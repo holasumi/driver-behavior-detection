@@ -1,5 +1,7 @@
 # Validasi 13 September 2026
 
+- Instalasi bersih Python 3.11 dari `requirements.txt` berhasil dan `pip check` tidak menemukan konflik.
+- Inisialisasi MediaPipe FaceMesh serta pemrosesan frame kosong berhasil tanpa kamera.
 - 19 pengujian aturan dan geometri lulus: kedipan, kedua mata tertutup, durasi pada beberapa FPS, wajah hilang, jeda kamera, PERCLOS, kalibrasi, timestamp non-finite, pose ekstrem, dan kualitas geometri.
 - Kesetaraan Python/JavaScript diuji pada 1.201 sampel metrik termasuk pose ekstrem dan mata tidak valid.
 - Geometri sintetis: yaw -30°, 0°, +30° dipulihkan dengan toleransi 0,001°. Landmark rusak dan mata terlalu kecil ditolak.
