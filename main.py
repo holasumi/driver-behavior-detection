@@ -1,12 +1,3 @@
-"""Driver Behavior Detection — deteksi kantuk, menguap, dan distraksi (menoleh/menunduk) via webcam.
-
-Jalankan:
-    python main.py
-
-Tekan 'q' untuk keluar.
-"""
-
-import time
 import argparse
 
 import cv2
@@ -18,6 +9,16 @@ from logger import EventLogger
 
 
 from state import DriverState
+
+STATUS_LABELS = {
+    "no_face": "Wajah tidak terbaca",
+    "eyes_unknown": "Mata tidak dapat dinilai",
+    "normal": "Tidak ada peringatan",
+    "drowsy": "MATA TERTUTUP LAMA! Beristirahatlah",
+    "distracted": "Fokus ke jalan!",
+    "yawn": "Mulut terbuka lama / kemungkinan menguap",
+    "fatigue": "Indikasi lelah (PERCLOS tinggi)",
+}
 
 
 def draw_hud(frame, metrics, result, status_text, status_color):
@@ -60,20 +61,11 @@ def main():
                 print("Gagal membaca frame dari kamera.")
                 break
 
-            # Estimate geometry before any cosmetic mirroring.
+
             metrics = face_detector.process(frame)
             result = state.update(metrics)
-            labels = {
-                "calibration": f"Lihat lurus, buka mata, tutup mulut: {result['progress']:.0%}",
-                "no_face": "Wajah tidak terbaca",
-                "eyes_unknown": "Mata tidak dapat dinilai",
-                "normal": "Tidak ada peringatan",
-                "drowsy": "MATA TERTUTUP LAMA! Beristirahatlah",
-                "distracted": "Fokus ke jalan!",
-                "yawn": "Mulut terbuka lama / kemungkinan menguap",
-                "fatigue": "Indikasi lelah (PERCLOS tinggi)",
-            }
-            status_text = labels[result['status']]
+            status_text = (f"Lihat lurus, buka mata, tutup mulut: {result['progress']:.0%}"
+                           if result['status'] == 'calibration' else STATUS_LABELS[result['status']])
             status_color = (0, 200, 0) if result['status'] == 'normal' else (0, 165, 255)
             if result['status'] in ('drowsy', 'distracted'):
                 status_color = (0, 0, 255)

@@ -1,5 +1,3 @@
-"""Pencatatan kejadian (drowsy, yawn, distracted) ke file CSV untuk analisis lanjutan."""
-
 import os
 import csv
 from datetime import datetime

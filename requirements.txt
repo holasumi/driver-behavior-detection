@@ -1,8 +1,5 @@
-# MediaPipe 0.10.14 uses the legacy FaceMesh API and NumPy 1.x.
-# Use the contrib distribution only; it already supplies the cv2 module.
 opencv-contrib-python==4.11.0.86
 mediapipe==0.10.14
 numpy==1.26.4
-# Bound MediaPipe's transitive JAX dependencies to a NumPy 1.x-compatible pair.
 jax==0.4.35
 jaxlib==0.4.35

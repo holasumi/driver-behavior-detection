@@ -1,5 +1,3 @@
-"""Alarm suara lintas platform, dijalankan di thread terpisah agar tidak memblokir video loop."""
-
 import sys
 import subprocess
 import threading
@@ -34,7 +32,6 @@ _last_thread = None
 
 
 def play_alert_async():
-    """Memicu bunyi alarm tanpa memblokir thread pemanggil (drop jika alarm sebelumnya masih bunyi)."""
     global _last_thread
     if _last_thread is not None and _last_thread.is_alive():
         return

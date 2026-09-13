@@ -1,8 +1,3 @@
-"""Calibrated, time-based rules; rules.json is also consumed by the web UI.
-
-EAR measures closure, not fatigue ground truth. Missing/implausible eye
-measurements are unknown and never counted as open eyes.
-"""
 import json
 import math
 import statistics
@@ -65,7 +60,7 @@ class DriverState:
         eye_valid = (not self.eyes_obscured and m.get('eyes_valid', True)
                      and 0.02 <= left <= 0.6 and 0.02 <= right <= 0.6
                      and abs(left-right) < 0.12)
-        eye = max(left, right)  # both eyes must close; a wink is not sleep
+        eye = max(left, right)
         if self.baseline is None:
             usable = abs(m['roll']) < 15 and (self.eyes_obscured or (eye_valid and eye > 0.14 and m['mar'] < 0.35))
             if not usable:
@@ -114,10 +109,11 @@ class DriverState:
             events.append('drowsy_end')
         self.active = new
         status = next((k for k in ('drowsy','distracted','yawn','fatigue') if k in new), 'normal' if eye_valid else 'eyes_unknown')
-        return self._result(status, events, eye_valid, 1, {'yaw':yaw,'pitch':pitch,'ear':eye,'mar':m['mar'],'threshold':self.baseline['eye']*r['eye_ratio']})
+        return self._result(status, events, eye_valid, 1, {'yaw':yaw,'pitch':pitch,'ear':eye,'mar':m['mar'],'threshold':self.baseline['eye']*r['eye_ratio']}, observed)
 
-    def _result(self, status, events, eyes_valid, progress, metrics):
-        observed = sum(b-a for a,b,_ in self.history)
+    def _result(self, status, events, eyes_valid, progress, metrics, observed=None):
+        if observed is None:
+            observed = sum(b-a for a,b,_ in self.history)
         return {'status':status, 'events':events, 'eyes_valid':eyes_valid,
                 'progress':progress, 'metrics':metrics, 'perclos':self.perclos if eyes_valid and status not in ('no_face','calibration') and observed >= RULES['perclos_min_seconds'] else None,
                 'observed_seconds':observed, 'active':sorted(self.active)}

@@ -78,7 +78,7 @@ class StateTests(unittest.TestCase):
         self.assertEqual(calibrated().update(dict(M,yaw=float('nan')),4.1)['status'],'no_face')
     def test_perclos_time_weighted(self):
         s=calibrated()
-        # Ten seconds open at 10 FPS; ten seconds closed at 30 FPS.
+
         for i in range(1,101):s.update(M,4+i/10)
         for i in range(1,301):out=s.update(dict(M,ear=.1,left_ear=.1,right_ear=.1),14+i/30)
         self.assertAlmostEqual(out['perclos'],.5,delta=.01)

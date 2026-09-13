@@ -1,5 +1,3 @@
-"""Wrapper MediaPipe FaceMesh: dari satu frame -> metrik wajah (EAR, MAR, pose kepala)."""
-
 from dataclasses import dataclass
 from typing import Optional
 
