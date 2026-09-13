@@ -6,7 +6,9 @@ Pembaruan versi 2 berhasil diterbitkan pada 13 September 2026, dengan akses publ
 
 Repositori publik: https://github.com/holasumi/driver-behavior-detection
 
-Website GitHub Pages: https://holasumi.github.io/driver-behavior-detection/
+Alamat GitHub Pages yang dikonfigurasi: https://holasumi.github.io/driver-behavior-detection/
+
+Status Pages pada 13 September 2026: sumber `gh-pages` sudah benar, tetapi API build GitHub mengembalikan HTTP 500 dan belum menghasilkan deployment. Gunakan tautan Sites di atas yang sudah berhasil dan merespons HTTP 200 tanpa login.
 
 GitHub Pages menggunakan cabang `gh-pages` berisi `web/dist`. Perbarui setelah commit dengan:
 
