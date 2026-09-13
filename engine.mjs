@@ -59,7 +59,6 @@ export function faceMetrics(result,width,height) {
   if(!p.every(v=>v.every(Number.isFinite)) || dist(p[33],p[263])<30)return null;
   const eyesValid=[[362,385,387,263,373,380],[33,160,158,133,153,144]].every(ids=>dist(p[ids[0]],p[ids[3]])>=12&&ids.every(i=>p[i][0]>=0&&p[i][0]<width&&p[i][1]>=0&&p[i][1]<height));
   const left=ear(p,[362,385,387,263,373,380]),right=ear(p,[33,160,158,133,153,144]);
-  // MediaPipe MatrixData is column-major. Normalize columns to remove scale.
   const sx=Math.hypot(matrix[0],matrix[1],matrix[2]);
   const sy=Math.hypot(matrix[4],matrix[5],matrix[6]);
   const sz=Math.hypot(matrix[8],matrix[9],matrix[10]);
