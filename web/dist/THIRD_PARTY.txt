@@ -1,0 +1,8 @@
+MediaPipe Tasks Vision 0.10.22-rc.20250304
+Source: https://github.com/google-ai-edge/mediapipe
+Distribution: https://www.npmjs.com/package/@mediapipe/tasks-vision
+License: Apache License 2.0; see vendor/LICENSE
+Face Landmarker model (float16, version 1):
+https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
+Documentation: https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker
+All model and WASM files are served from this website; camera frames are not sent to a server.
